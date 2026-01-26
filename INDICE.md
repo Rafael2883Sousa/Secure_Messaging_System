@@ -5,7 +5,7 @@
 ```
 /app/secure_messaging_system/
 │
-├── 📁 common/                          # Módulos comuns
+├── 📁 common/                        # Módulos comuns
 │   ├── __init__.py                    # Marcador de pacote Python
 │   ├── crypto_primitives.py           # ⭐ Primitivas criptográficas (ECC, ECDH, ECDSA, HKDF, AES-GCM)
 │   └── protocol.py                    # Protocolo de comunicação JSON
@@ -63,7 +63,6 @@ decrypt_message()           # AES-256-GCM (decifra)
 - ✅ SHA-256
 
 #### protocol.py
-**Linhas de código**: ~60  
 **Propósito**: Define protocolo de comunicação
 
 **Classes**:
@@ -99,7 +98,6 @@ CREATE TABLE users (
 ```
 
 #### server.py (⭐ CORE)
-**Linhas de código**: ~250  
 **Propósito**: Servidor TCP que atua como Autoridade de Registo
 
 **Classe**: `RegistrationAuthority`
@@ -123,7 +121,6 @@ python3 server/server.py [--host 127.0.0.1] [--port 5000] [--db caminho.db]
 ### 📁 client/ - Cliente de Mensagens
 
 #### client.py (⭐ CORE)
-**Linhas de código**: ~450  
 **Propósito**: Cliente CLI para mensagens seguras
 
 **Classe**: `SecureClient`
@@ -156,7 +153,6 @@ python3 client/client.py <user_id> [--server-host 127.0.0.1] [--server-port 5000
 ### 📄 Scripts de Teste
 
 #### test_system.py (⭐ IMPORTANTE)
-**Linhas de código**: ~250  
 **Propósito**: Valida todas as primitivas criptográficas
 
 **Testes**:
@@ -188,12 +184,6 @@ python3 test_system.py
 ```bash
 python3 test_server.py
 ```
-
-#### demo.sh
-**Linhas de código**: ~50  
-**Propósito**: Script de demonstração completa
-
----
 
 ### 📖 Documentação
 
@@ -228,7 +218,7 @@ python3 test_server.py
 
 **Adequado para**: Entrega académica
 
-#### GUIA_RAPIDO.md
+#### GUIA.md
 **Conteúdo**:
 - Instalação rápida
 - Testes rápidos
@@ -252,35 +242,6 @@ python3 test_server.py
 
 #### INDICE.md
 Este arquivo - Índice completo do projeto
-
----
-
-## Estatísticas do Projeto
-
-### Linhas de Código (aproximado)
-```
-common/crypto_primitives.py:  ~200 linhas
-common/protocol.py:            ~60 linhas
-server/database.py:           ~100 linhas
-server/server.py:             ~250 linhas
-client/client.py:             ~450 linhas
-test_system.py:               ~250 linhas
-test_server.py:               ~200 linhas
-─────────────────────────────────────────
-Total:                       ~1510 linhas
-```
-
-### Documentação (aproximado)
-```
-README.md:                    ~250 linhas
-RELATORIO_TECNICO.md:         ~400 linhas
-GUIA_RAPIDO.md:               ~200 linhas
-DIAGRAMAS.md:                 ~450 linhas
-─────────────────────────────────────────
-Total:                       ~1300 linhas
-```
-
----
 
 ## Ficheiros Gerados em Runtime
 
@@ -372,5 +333,4 @@ tree -L 2
 ```
 
 ---
-
 Este índice fornece uma visão completa de todos os componentes do sistema, facilitando a navegação e compreensão do projeto.
