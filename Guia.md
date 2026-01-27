@@ -29,7 +29,7 @@ Este script testa:
 ### 2. Testar Servidor Automaticamente
 
 ```bash
-python3 test_server.py
+python3 teste_servidor.py
 ```
 
 Este script:
@@ -44,8 +44,9 @@ Este script:
 ### Terminal 1: Servidor
 
 ```bash
+git clone https://github.com/Rafael2883Sousa/Secure_Messaging_System.git
 cd /app/secure_messaging_system
-python3 server/server.py
+python3 servidor/servidor.py
 ```
 
 Saída esperada:
@@ -59,7 +60,7 @@ Saída esperada:
 
 ```bash
 cd /app/secure_messaging_system
-python3 client/client.py alice --listen-port 6000
+python3 cliente/client.py alice --listen-port 6000
 ```
 
 Saída esperada:
@@ -87,7 +88,7 @@ Menu:
 
 ```bash
 cd /app/secure_messaging_system
-python3 client/client.py bob --listen-port 6001
+python3 cliente/client.py bob --listen-port 6001
 ```
 
 ### Passo a Passo: Alice envia mensagem para Bob
@@ -164,10 +165,10 @@ python3 client/client.py bob --listen-port 6001
 
 ## Verificação de Segurança
 
-Durante a execução, você pode verificar:
+Durante a execução, pode-se verificar:
 
 1. **Confidencialidade**: 
-   - Use Wireshark para capturar tráfego
+   - Wireshark ou outro para capturar tráfego
    - Verá apenas dados cifrados (base64)
 
 2. **Integridade**:
@@ -182,29 +183,29 @@ Durante a execução, você pode verificar:
 
 ```
 /app/secure_messaging_system/
-├── common/
+├── comon/
 │   ├── __init__.py
-│   ├── crypto_primitives.py    # ✓ Primitivas criptográficas
-│   └── protocol.py              # ✓ Protocolo de comunicação
-├── server/
+│   ├── primitivas_crypto.py    # ✓ Primitivas criptográficas
+│   └── protocol.py             # ✓ Protocolo de comunicação
+├── servidor/
 │   ├── __init__.py
-│   ├── database.py              # ✓ Gestão SQLite
-│   └── server.py                # ✓ Servidor (AR)
-├── client/
+│   ├── db.py                    # ✓ Gestão SQLite
+│   └── servidor.py              # ✓ Servidor (AR)
+├── cliente/
 │   ├── __init__.py
 │   └── client.py                # ✓ Cliente CLI
-├── test_system.py               # ✓ Teste de primitivas
-├── test_server.py               # ✓ Teste do servidor
+├── teste_sistema.py             # ✓ Teste de primitivas
+├── teste_servidor.py            # ✓ Teste do servidor
 ├── demo.sh                      # ✓ Script de demonstração
 ├── README.md                    # ✓ Documentação principal
 ├── RELATORIO_TECNICO.md         # ✓ Relatório técnico detalhado
-└── GUIA_RAPIDO.md               # ✓ Este arquivo
+└── GUIA.md                      # ✓ Este arquivo
 ```
 
 ## Base de Dados
 
 Após execução, será criado:
-- `registration_authority.db`: Base SQLite com utilizadores registados
+- `autoridade_registro.db`: Base SQLite com utilizadores registados
 
 Estrutura da tabela:
 ```sql
@@ -224,7 +225,7 @@ CREATE TABLE users (
 lsof -i :5000
 
 # Usa porta diferente
-python3 server/server.py --port 5001
+python3 servidor/servidor.py --port 5001
 ```
 
 ### Cliente não conecta
@@ -249,13 +250,13 @@ pip3 install --upgrade cryptography
 ### Limpar base de dados
 
 ```bash
-rm registration_authority.db
+rm autoridade_registro.db
 ```
 
 ### Ver conteúdo da base de dados
 
 ```bash
-sqlite3 registration_authority.db "SELECT * FROM users;"
+sqlite3 autoridade_registro.db "SELECT * FROM users;"
 ```
 
 ### Executar demonstração completa

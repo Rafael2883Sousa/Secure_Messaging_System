@@ -32,10 +32,9 @@
 
 ## Descrição Detalhada
 
-### 📁 common/ - Módulos Comuns
+### 📁 comon/ - Módulos Comuns
 
-#### crypto_primitives.py (⭐ CORE)
-**Linhas de código**: ~200  
+#### primitivas_crypto.py
 **Propósito**: Implementa todas as operações criptográficas
 
 **Classe Principal**:
@@ -71,10 +70,9 @@ decrypt_message()           # AES-256-GCM (decifra)
 
 ---
 
-### 📁 server/ - Autoridade de Registo
+### 📁 servidor/ - Autoridade de Registo
 
-#### database.py
-**Linhas de código**: ~100  
+#### db.py
 **Propósito**: Gestão da base de dados SQLite
 
 **Classe**: `Database`
@@ -97,7 +95,7 @@ CREATE TABLE users (
 );
 ```
 
-#### server.py (⭐ CORE)
+#### servidor.py
 **Propósito**: Servidor TCP que atua como Autoridade de Registo
 
 **Classe**: `RegistrationAuthority`
@@ -118,9 +116,9 @@ python3 server/server.py [--host 127.0.0.1] [--port 5000] [--db caminho.db]
 
 ---
 
-### 📁 client/ - Cliente de Mensagens
+### 📁 cliente/ - Cliente de Mensagens
 
-#### client.py (⭐ CORE)
+#### client.py
 **Propósito**: Cliente CLI para mensagens seguras
 
 **Classe**: `SecureClient`
@@ -152,7 +150,7 @@ python3 client/client.py <user_id> [--server-host 127.0.0.1] [--server-port 5000
 
 ### 📄 Scripts de Teste
 
-#### test_system.py (⭐ IMPORTANTE)
+#### teste_systema.py 
 **Propósito**: Valida todas as primitivas criptográficas
 
 **Testes**:
@@ -166,11 +164,10 @@ python3 client/client.py <user_id> [--server-host 127.0.0.1] [--server-port 5000
 
 **Execução**:
 ```bash
-python3 test_system.py
+python3 teste_systema.py
 ```
 
-#### test_server.py
-**Linhas de código**: ~200  
+#### teste_servidor.py
 **Propósito**: Testa servidor automaticamente
 
 **Testes**:
@@ -182,12 +179,12 @@ python3 test_system.py
 
 **Execução**:
 ```bash
-python3 test_server.py
+python3 teste_servidor.py
 ```
 
 ### 📖 Documentação
 
-#### README.md (⭐ PRINCIPAL)
+#### README.md 
 **Conteúdo**:
 - Descrição do projeto
 - Primitivas criptográficas
@@ -202,8 +199,7 @@ python3 test_server.py
 - Limitações e melhorias futuras
 - Notas técnicas
 
-#### RELATORIO_TECNICO.md (⭐ ACADÉMICO)
-**Páginas**: 10-15  
+#### RELATORIO_TECNICO.md 
 **Conteúdo**:
 1. Introdução
 2. Arquitetura do Sistema
@@ -249,7 +245,7 @@ Durante a execução, o sistema cria:
 
 ```
 📂 /app/secure_messaging_system/
-├── registration_authority.db    # Base de dados SQLite (gerado pelo servidor)
+├── autoridade_registro.db    # Base de dados SQLite (gerado pelo servidor)
 └── __pycache__/                # Cache Python (gerado automaticamente)
     ├── crypto_primitives.*.pyc
     ├── protocol.*.pyc
@@ -263,19 +259,19 @@ Durante a execução, o sistema cria:
 
 ```
 server.py
-├── database.py
-├── crypto_primitives.py
+├── db.py
+├── primitivas_crypto.py
 └── protocol.py
 
-client.py
-├── crypto_primitives.py
+cliente.py
+├── primitivas_crypto.py
 └── protocol.py
 
-test_system.py
-└── crypto_primitives.py
+teste_systema.py
+└── primitivas_crypto.py
 
-test_server.py
-├── crypto_primitives.py
+teste_servidor.py
+├── primitivas_crypto.py
 ├── protocol.py
 └── (inicia server.py como subprocess)
 ```
@@ -288,24 +284,22 @@ Para compreensão do projeto:
 
 1. **README.md** - Visão geral
 2. **GUIA_RAPIDO.md** - Como executar
-3. **test_system.py** - Executar testes das primitivas
-4. **common/crypto_primitives.py** - Ver implementação
+3. **teste_systema.py** - Executar testes das primitivas
+4. **comon/primitivas_crypto.py** - Ver implementação
 5. **DIAGRAMAS.md** - Entender fluxos visualmente
-6. **server/server.py** - Servidor
-7. **client/client.py** - Cliente
+6. **servidor/servidor.py** - Servidor
+7. **cliente/cliente.py** - Cliente
 8. **RELATORIO_TECNICO.md** - Análise completa
 
 ---
 
 ## Ficheiros Essenciais para Demonstração
 
-Se tiver tempo limitado, foque nestes ficheiros:
-
 ⭐ **Executáveis**:
-1. `test_system.py` - Valida primitivas
-2. `test_server.py` - Testa servidor
-3. `server/server.py` - Servidor AR
-4. `client/client.py` - Cliente CLI
+1. `teste_systema.py` - Valida primitivas
+2. `teste_servidor.py` - Testa servidor
+3. `servidor/servidor.py` - Servidor AR
+4. `cliente/client.py` - Cliente CLI
 
 ⭐ **Documentação**:
 1. `README.md` - Instruções principais
@@ -320,10 +314,10 @@ Se tiver tempo limitado, foque nestes ficheiros:
 cd /app/secure_messaging_system
 
 # Testar primitivas
-python3 test_system.py
+python3 teste_systema.py
 
 # Testar servidor
-python3 test_server.py
+python3 teste_servidor.py
 
 # Demonstração completa
 ./demo.sh

@@ -75,7 +75,7 @@ Em terminais separados, inicie dois ou mais clientes:
 
 **Cliente Alice:**
 ```bash
-python3 client/client.py alice --listen-port 6000
+python3 cliente/client.py alice --listen-port 6000
 ```
 
 **Cliente Bob:**
@@ -157,13 +157,13 @@ Opção 1 do menu lista todos os utilizadores registados no servidor.
 
 ```
 secure_messaging_system/
-├── common/
-│   ├── crypto_primitives.py  # Primitivas criptográficas
+├── comon/
+│   ├── primitivas_crypto.py  # Primitivas criptográficas
 │   └── protocol.py            # Protocolo de comunicação
-├── server/
-│   ├── database.py            # Gestão da base de dados SQLite
-│   └── server.py              # Servidor de Registo (AR)
-├── client/
+├── servidor/
+│   ├── db.py            # Gestão da base de dados SQLite
+│   └── servidor.py              # Servidor de Registo (AR)
+├── cliente/
 │   └── client.py              # Cliente de mensagens seguras
 └── README.md
 ```

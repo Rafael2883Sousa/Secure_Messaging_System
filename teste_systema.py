@@ -15,7 +15,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from common.crypto_primitives import CryptoManager
+from comon.primitivas_crypto import CryptoManager
 
 
 def test_key_generation():
