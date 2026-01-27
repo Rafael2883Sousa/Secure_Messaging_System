@@ -3,11 +3,15 @@
 ## Instalação
 
 ```bash
+#Clonar Repositório
+git clone https://github.com/Rafael2883Sousa/Secure_Messaging_System.git
+
+# Navegar para o diretório
+cd Secure_messaging_system
+
 # Instalar dependências
 pip3 install cryptography
 
-# Navegar para o diretório
-cd /app/secure_messaging_system
 ```
 
 ## Teste Rápido

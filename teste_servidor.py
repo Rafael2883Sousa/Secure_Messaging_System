@@ -14,8 +14,8 @@ import signal
 
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from common.crypto_primitives import CryptoManager
-from common.protocol import MessageType, Protocol
+from comon.primitivas_crypto import CryptoManager
+from comon.protocol import MessageType, Protocol
 
 
 def test_server_connection(host='127.0.0.1', port=5000, max_attempts=5):
