@@ -18,8 +18,8 @@ import time
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from common.crypto_primitives import CryptoManager
-from common.protocol import MessageType, Protocol
+from comon.primitivas_crypto import CryptoManager
+from comon.protocol import MessageType, Protocol
 
 
 class SecureClient:

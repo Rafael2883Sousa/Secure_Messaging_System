@@ -49,7 +49,7 @@ Este script:
 
 ```bash
 git clone https://github.com/Rafael2883Sousa/Secure_Messaging_System.git
-cd /app/secure_messaging_system
+cd Secure_messaging_system
 python3 servidor/servidor.py
 ```
 
@@ -63,7 +63,7 @@ Saída esperada:
 ### Terminal 2: Cliente Alice
 
 ```bash
-cd /app/secure_messaging_system
+cd Secure_messaging_system
 python3 cliente/client.py alice --listen-port 6000
 ```
 
@@ -91,7 +91,7 @@ Menu:
 ### Terminal 3: Cliente Bob
 
 ```bash
-cd /app/secure_messaging_system
+cd Secure_messaging_system
 python3 cliente/client.py bob --listen-port 6001
 ```
 
@@ -186,7 +186,7 @@ Durante a execução, pode-se verificar:
 ## Estrutura de Arquivos Criados
 
 ```
-/app/secure_messaging_system/
+/Secure_messaging_system/
 ├── comon/
 │   ├── __init__.py
 │   ├── primitivas_crypto.py    # ✓ Primitivas criptográficas
