@@ -126,9 +126,9 @@ Opção 1 do menu lista todos os utilizadores registados no servidor.
 ## Fluxo de Estabelecimento de Sessão
 
 1. **Cliente A** solicita ao servidor a chave pública de **B**
-2. **A** conecta-se a **B** e gera chave ECDH efémera
-3. **A** envia sua chave pública efémera para **B**
-4. **B** gera sua própria chave efémera e responde
+2. **A** conecta-se a **B** e gera chave ECDH pública
+3. **A** envia sua chave pública para **B**
+4. **B** gera sua própria chave pública e responde
 5. **A** e **B** calculam o segredo partilhado (ECDH)
 6. **A** e **B** derivam a mesma chave AES-256 via HKDF
 7. Comunicação passa a ser simétrica usando AES-GCM
@@ -174,14 +174,14 @@ secure_messaging_system/
 ✅ Autenticação cliente → servidor  
 ✅ Lista de utilizadores registados  
 ✅ Verificação de integridade (AES-GCM)  
-✅ Chaves efémeras para forward secrecy  
+✅ Chaves públicas para forward secrecy  
 
 ## Segurança
 
 - **Confidencialidade**: AES-256-GCM
 - **Integridade**: AES-GCM (AEAD) + verificação de tag
 - **Autenticidade**: Assinaturas ECDSA em todas as mensagens
-- **Forward Secrecy**: Chaves efémeras ECDH para cada sessão
+- **Forward Secrecy**: Chaves públicas ECDH para cada sessão
 - **Servidor não tem acesso**: Às mensagens nem às chaves simétricas
 
 ## Limitações

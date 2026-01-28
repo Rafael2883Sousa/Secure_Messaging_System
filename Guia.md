@@ -285,7 +285,7 @@ sqlite3 autoridade_registro.db "SELECT * FROM users;"
 ✅ **Confidencialidade**: AES-256-GCM  
 ✅ **Integridade**: GCM tag + verificação  
 ✅ **Autenticidade**: Assinaturas ECDSA  
-✅ **Forward Secrecy**: Chaves efémeras ECDH  
+✅ **Forward Secrecy**: Chaves públicas ECDH  
 ✅ **Não-Repúdio**: Assinaturas digitais  
 
 ## Suporte

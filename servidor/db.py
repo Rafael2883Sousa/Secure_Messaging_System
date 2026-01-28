@@ -28,7 +28,7 @@ class Database:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 user_id TEXT PRIMARY KEY,
-                
+                listen_port INTEGER,
                 public_key TEXT NOT NULL,
                 registration_date TEXT NOT NULL
             )
@@ -37,15 +37,16 @@ class Database:
         conn.commit()
         conn.close()
     
-    def register_user(self, user_id: str, public_key: str) -> bool:
+    def register_user(self, user_id: str, public_key: str, listen_port: int) -> bool:
         """Regista um novo utilizador.
         
         Args:
             user_id: ID do utilizador
             public_key: Chave pública em formato PEM
+            listen_port: porta a escutar
             
         Returns:
-            True se registado com sucesso, False se já existe
+            True se registado com sucesso
         """
         try:
             conn = sqlite3.connect(self.db_path)
@@ -54,7 +55,7 @@ class Database:
             registration_date = datetime.datetime.now().isoformat()
             
             cursor.execute(
-                'INSERT INTO users (user_id, public_key, registration_date) VALUES (?, ?, ?)',
+                'INSERT INTO users (user_id, public_key, registration_date, listen_port) VALUES (?, ?, ?)',
                 (user_id, public_key, registration_date)
             )
             
@@ -92,7 +93,7 @@ class Database:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        cursor.execute('SELECT user_id, registration_date FROM users ORDER BY registration_date')
+        cursor.execute('SELECT user_id, listen_port, registration_date FROM users ORDER BY registration_date')
         results = cursor.fetchall()
         
         conn.close()

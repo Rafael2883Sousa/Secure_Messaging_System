@@ -25,7 +25,6 @@ from db import Database
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 
-
 class RegistrationAuthority:
     
     def __init__(self, host: str = '127.0.0.1', port: int = 5000, db_path: str = 'autoridade_registro.db'):
@@ -92,9 +91,10 @@ class RegistrationAuthority:
         """
         user_id = data.get('user_id')
         public_key_pem = data.get('public_key')
+        listen_port = data.get('listen_port')
         signature = data.get('signature')
         
-        if not user_id or not public_key_pem or not signature:
+        if not user_id or not public_key_pem or not signature or not listen_port:
             response = Protocol.create_message(
                 MessageType.REGISTER_ERROR,
                 {'message': 'Dados incompletos'}
@@ -158,7 +158,7 @@ class RegistrationAuthority:
             return
         
         # Regista utilizador
-        if self.db.register_user(user_id, public_key_pem):
+        if self.db.register_user(user_id, public_key_pem, listen_port):
             print(f"[+] Utilizador '{user_id}' registado com sucesso")
             response = Protocol.create_message(
                 MessageType.REGISTER_OK,
@@ -211,7 +211,7 @@ class RegistrationAuthority:
             client_socket: Socket do cliente
         """
         users = self.db.list_users()
-        users_list = [{'user_id': uid, 'registration_date': date} for uid, date in users]
+        users_list = [{'user_id': uid, 'listen_port': port, 'registration_date': date} for uid, date, port in users]
         
         response = Protocol.create_message(
             MessageType.LIST_USERS_RESPONSE,

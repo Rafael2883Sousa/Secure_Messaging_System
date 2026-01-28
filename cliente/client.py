@@ -124,6 +124,7 @@ class SecureClient:
                 {
                     'user_id': self.user_id,
                     'public_key': public_key_pem,
+                    'listen_port': self.listen_port,
                     'signature': signature
                 }
             )
@@ -201,9 +202,10 @@ class SecureClient:
             
             if response['type'] == MessageType.LIST_USERS_RESPONSE:
                 users = response['data']['users']
+                port = user.get('listen_port')
                 print("\n=== Utilizadores Registados ===")
                 for user in users:
-                    print(f"  - {user['user_id']} (registado em {user['registration_date']})")
+                    print(f"  - {user['user_id']}, porta: {port} (registado em {user['registration_date']})")
                 print("================================\n")
             else:
                 print(f"[-] Erro: {response['data'].get('message')}")
@@ -236,11 +238,11 @@ class SecureClient:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((peer_host, peer_port))
             
-            # Gera chave efémera para ECDH
+            # Gera chave pública para ECDH
             ephemeral_private, ephemeral_public = self.crypto.generate_key_pair()
             ephemeral_public_pem = self.crypto.serialize_public_key(ephemeral_public)
             
-            # Envia chave efémera ao peer
+            # Envia chave pública ao peer
             key_exchange = Protocol.create_message(
                 MessageType.KEY_EXCHANGE,
                 {
@@ -250,7 +252,7 @@ class SecureClient:
             )
             Protocol.send_message(sock, key_exchange)
             
-            # Recebe chave efémera do peer
+            # Recebe chave pública do peer
             response_str = Protocol.receive_message(sock)
             response = Protocol.parse_message(response_str)
             
@@ -393,7 +395,7 @@ class SecureClient:
                 peer_public_key = self.crypto.deserialize_public_key(peer_public_key_pem)
                 peer_ephemeral_public = self.crypto.deserialize_public_key(peer_ephemeral_pem)
                 
-                # Gera própria chave efémera
+                # Gera própria chave pública
                 ephemeral_private, ephemeral_public = self.crypto.generate_key_pair()
                 ephemeral_public_pem = self.crypto.serialize_public_key(ephemeral_public)
                 
@@ -498,17 +500,9 @@ def main():
     print(f"\n[*] Cliente '{args.user_id}' pronto!")
     print(f"[*] Porta de escuta: {client.listen_port}\n")
     
-    # # Menu interativo
-    # print("=== Menu ===")
-    # print("1. Listar utilizadores")
-    # print("2. Estabelecer sessão com peer")
-    # print("3. Enviar mensagem")
-    # print("4. Sair")
-    # print("============\n")
-    
     while True:
         try:
-            choice = input(f"=== Menu ===\n1. Listar utilizadores\n2. Estabelecer sessão com peer\n3. Enviar mensagem\n4. Sair\n============\nEscolha uma opção: ").strip()
+            choice = input(f"\n=== Menu ===\n1. Listar utilizadores\n2. Estabelecer sessão com peer\n3. Enviar mensagem\n4. Sair\n============\nEscolha uma opção: ").strip()
             
             if choice == '1':
                 client.list_users()

@@ -86,7 +86,7 @@ Alice                  Servidor (AR)                  Bob
   │◄────────────────────────┤                          │
   │  {bob, public_key_pem}  │                          │
   │                         │                          │
-  │ 2. Gera chave efémera ECDH                         │
+  │ 2. Gera chave pública ECDH                         │
   │    (a, A) onde A = a·G  │                          │
   │                         │                          │
   │ 3. Conecta diretamente a Bob (P2P)                 │
@@ -274,9 +274,9 @@ Tempo │ Alice                    Servidor (AR)              Bob
   T4  │ GET_PUBLIC_KEY(bob) ───►│                          │
       │ ◄─────── public_key_bob │                          │
       │                         │                          │
-  T5  │ Gera chave efémera      │                          │
+  T5  │ Gera chave pública      │                          │
       │ KEY_EXCHANGE ───────────────────────────────────►  │
-      │                         │                   Gera efémera
+      │                         │                   Gera pública
       │ ◄────────────────────── KEY_EXCHANGE_ACK ─────────  │
       │                         │                          │
   T6  │ ECDH → Shared Secret    │         Shared Secret ← ECDH
@@ -340,9 +340,9 @@ Tempo │ Alice                    Servidor (AR)              Bob
 │           Ameaça: Comprometimento de Sessão Passada        │
 │  Chave privada de Alice é roubada no futuro                │
 │  ┌──────────────────────────────────────────────────┐      │
-│  │ Defesa: Forward Secrecy (Chaves Efémeras ECDH)   │      │
-│  │ • Cada sessão usa par efémero único              │      │
-│  │ • Chaves efémeras descartadas após sessão        │      │
+│  │ Defesa: Forward Secrecy (Chaves Públicas ECDH)   │      │
+│  │ • Cada sessão usa par pública único              │      │
+│  │ • Chaves públicas descartadas após sessão        │      │
 │  │ • Comprometimento futuro não afeta passado       │      │
 │  └──────────────────────────────────────────────────┘      │
 └────────────────────────────────────────────────────────────┘
