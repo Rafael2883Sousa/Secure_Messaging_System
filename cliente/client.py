@@ -508,7 +508,7 @@ def main():
     
     while True:
         try:
-            choice = input(f"Escolha uma opção: \n=== Menu ===\n1. Listar utilizadores\n2. Estabelecer sessão com peer\n3. Enviar mensagem\n4. Sair\n============\n").strip()
+            choice = input(f"=== Menu ===\n1. Listar utilizadores\n2. Estabelecer sessão com peer\n3. Enviar mensagem\n4. Sair\n============\nEscolha uma opção: ").strip()
             
             if choice == '1':
                 client.list_users()
