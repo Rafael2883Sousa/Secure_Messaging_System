@@ -222,9 +222,9 @@ class SecureClient:
             
             if response['type'] == MessageType.LIST_USERS_RESPONSE:
                 users = response['data']['users']
-                port = user.get('listen_port')
                 print("\n=== Utilizadores Registados ===")
                 for user in users:
+                    port = user.get('listen_port')
                     print(f"  - {user['user_id']}, porta: {port} (registado em {user['registration_date']})")
                 print("================================\n")
             else:
