@@ -22,6 +22,9 @@ from comon.primitivas_crypto import CryptoManager
 from comon.protocol import MessageType, Protocol
 from db import Database
 
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.backends import default_backend
+
 
 class RegistrationAuthority:
     
@@ -78,6 +81,8 @@ class RegistrationAuthority:
             client_socket.close()
             print(f"[-] Conexão fechada com {client_address}")
     
+
+
     def handle_register(self, client_socket, data):
         """Processa pedido de registo.
         
@@ -100,14 +105,30 @@ class RegistrationAuthority:
         if self.db.user_exists(user_id):
             existing_public_key_pem = self.db.get_public_key(user_id)
 
-            # Normaliza para evitar diferenças só de whitespace
-            if (existing_public_key_pem or "").strip() == public_key_pem.strip():
-                response = Protocol.create_message(
-                    MessageType.REGISTER_OK,
-                    {'message': 'Utilizador já registado (chave confirmada)'}
+            def _pubkey_der(pem_str: str) -> bytes:
+                key = serialization.load_pem_public_key(pem_str.encode("utf-8"), backend=default_backend())
+                return key.public_bytes(
+                    encoding=serialization.Encoding.DER,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
                 )
-                Protocol.send_message(client_socket, response)
-                return
+            
+            try:
+                if _pubkey_der(existing_public_key_pem) == _pubkey_der(public_key_pem):
+                    response = Protocol.create_message(
+                        MessageType.REGISTER_OK,
+                        {'message': 'Utilizador já registado (chave confirmada)'}
+                    )
+                    Protocol.send_message(client_socket, response)
+                    return
+            except Exception:
+                # fallback (se houver lixo/encoding inesperado na BD)
+                if (existing_public_key_pem or "").strip() == public_key_pem.strip():
+                    response = Protocol.create_message(
+                        MessageType.REGISTER_OK,
+                        {'message': 'Utilizador já registado (chave confirmada)'}
+                    )
+                    Protocol.send_message(client_socket, response)
+                    return
 
             response = Protocol.create_message(
                 MessageType.REGISTER_ERROR,
