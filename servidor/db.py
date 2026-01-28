@@ -55,7 +55,7 @@ class Database:
             registration_date = datetime.datetime.now().isoformat()
             
             cursor.execute(
-                'INSERT INTO users (user_id, listen_port, public_key, registration_date) VALUES (?, ?, ?)',
+                'INSERT INTO users (user_id, listen_port, public_key, registration_date) VALUES (?, ?, ?, ?)',
                 (user_id, listen_port, public_key, registration_date)
             )
             
