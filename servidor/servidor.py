@@ -212,8 +212,9 @@ class RegistrationAuthority:
         Args:
             client_socket: Socket do cliente
         """
+        
         users = self.db.list_users()
-        users_list = [{'user_id': uid, 'listen_port': port, 'registration_date': date} for uid, date, port in users]
+        users_list = [{'user_id': uid, 'registration_date': date, 'listen_port': port} for uid, date, port in users]
         
         response = Protocol.create_message(
             MessageType.LIST_USERS_RESPONSE,

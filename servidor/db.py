@@ -93,7 +93,7 @@ class Database:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        cursor.execute('SELECT user_id, listen_port, registration_date FROM users ORDER BY registration_date')
+        cursor.execute('SELECT user_id, registration_date, listen_port FROM users ORDER BY registration_date')
         results = cursor.fetchall()
         
         conn.close()
