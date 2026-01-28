@@ -123,8 +123,8 @@ class SecureClient:
                 MessageType.REGISTER,
                 {
                     'user_id': self.user_id,
-                    'public_key': public_key_pem,
                     'listen_port': self.listen_port,
+                    'public_key': public_key_pem,
                     'signature': signature
                 }
             )
