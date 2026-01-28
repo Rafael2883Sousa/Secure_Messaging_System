@@ -94,6 +94,26 @@ class SecureClient:
 
         print(f"[+] Chaves geradas e guardadas: {priv_path} / {pub_path}")
 
+    def start_listening(self, port: int = 0):
+        """Inicia escuta para conexões de entrada.
+        
+        Args:
+            port: Porta para escutar (0 = porta aleatória)
+        """
+        self.listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.listen_socket.bind(('0.0.0.0', port))
+        self.listen_socket.listen(5)
+        
+        self.listen_port = self.listen_socket.getsockname()[1]
+        self.listening = True
+        
+        print(f"[*] A escutar em 0.0.0.0:{self.listen_port}")
+        
+        listen_thread = threading.Thread(target=self._listen_loop)
+        listen_thread.daemon = True
+        listen_thread.start()
+
     def register_with_server(self) -> bool:
         """Regista o cliente no servidor.
         
@@ -332,26 +352,6 @@ class SecureClient:
             print(f"[-] Erro ao enviar mensagem: {e}")
             return False
     
-    def start_listening(self, port: int = 0):
-        """Inicia escuta para conexões de entrada.
-        
-        Args:
-            port: Porta para escutar (0 = porta aleatória)
-        """
-        self.listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.listen_socket.bind(('0.0.0.0', port))
-        self.listen_socket.listen(5)
-        
-        self.listen_port = self.listen_socket.getsockname()[1]
-        self.listening = True
-        
-        print(f"[*] A escutar em 0.0.0.0:{self.listen_port}")
-        
-        listen_thread = threading.Thread(target=self._listen_loop)
-        listen_thread.daemon = True
-        listen_thread.start()
-    
     def _listen_loop(self):
         """Loop de escuta para conexões de entrada."""
         while self.listening:
@@ -490,13 +490,14 @@ def main():
     # Gera chaves
     client.load_or_generate_keys()
     
+    # Inicia escuta
+    client.start_listening(args.listen_port)
+
     # Regista no servidor
     if not client.register_with_server():
         print("[-] Falha no registo. A sair.")
         return
     
-    # Inicia escuta
-    client.start_listening(args.listen_port)
     print(f"\n[*] Cliente '{args.user_id}' pronto!")
     print(f"[*] Porta de escuta: {client.listen_port}\n")
     
