@@ -89,12 +89,14 @@ class RegistrationAuthority:
             client_socket: Socket do cliente
             data: Dados do pedido (user_id, public_key, signature)
         """
+        print("[DBG] REGISTER data:", data)
+
         user_id = data.get('user_id')
         public_key_pem = data.get('public_key')
         listen_port = data.get('listen_port')
         signature = data.get('signature')
         
-        if not user_id or not public_key_pem or not signature or not listen_port:
+        if not user_id or not public_key_pem or not signature or listen_port is None:
             response = Protocol.create_message(
                 MessageType.REGISTER_ERROR,
                 {'message': 'Dados incompletos'}
