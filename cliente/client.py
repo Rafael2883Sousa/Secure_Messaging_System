@@ -56,6 +56,44 @@ class SecureClient:
         self.private_key, self.public_key = self.crypto.generate_key_pair()
         print("[+] Par de chaves gerado com sucesso")
     
+    def load_or_generate_keys(self):
+        """
+        Carrega chaves do disco se existirem; caso contrário gera e guarda.
+        Isto evita alterar a identidade (user_id -> public_key) entre execuções.
+        """
+        keys_dir = os.path.join(os.path.dirname(__file__), "keys")
+        os.makedirs(keys_dir, exist_ok=True)
+
+        priv_path = os.path.join(keys_dir, f"{self.user_id}_private.pem")
+        pub_path = os.path.join(keys_dir, f"{self.user_id}_public.pem")
+
+        if os.path.exists(priv_path) and os.path.exists(pub_path):
+            # Carregar
+            with open(priv_path, "r", encoding="utf-8") as f:
+                priv_pem = f.read()
+            with open(pub_path, "r", encoding="utf-8") as f:
+                pub_pem = f.read()
+
+            self.private_key = self.crypto.deserialize_private_key(priv_pem)
+            self.public_key = self.crypto.deserialize_public_key(pub_pem)
+
+            print(f"[+] Chaves carregadas do disco: {priv_path} / {pub_path}")
+            return
+
+        # Gerar e guardar
+        print("[*] Nenhuma chave encontrada. A gerar novo par ECC (SECP256R1)...")
+        self.private_key, self.public_key = self.crypto.generate_key_pair()
+
+        priv_pem = self.crypto.serialize_private_key(self.private_key)  
+        pub_pem = self.crypto.serialize_public_key(self.public_key)
+
+        with open(priv_path, "w", encoding="utf-8") as f:
+            f.write(priv_pem)
+        with open(pub_path, "w", encoding="utf-8") as f:
+            f.write(pub_pem)
+
+        print(f"[+] Chaves geradas e guardadas: {priv_path} / {pub_path}")
+
     def register_with_server(self) -> bool:
         """Regista o cliente no servidor.
         
@@ -448,7 +486,7 @@ def main():
     client = SecureClient(args.user_id, args.server_host, args.server_port)
     
     # Gera chaves
-    client.generate_keys()
+    client.load_or_generate_keys()
     
     # Regista no servidor
     if not client.register_with_server():

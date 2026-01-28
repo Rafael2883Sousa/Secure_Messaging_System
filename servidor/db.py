@@ -28,6 +28,7 @@ class Database:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 user_id TEXT PRIMARY KEY,
+                
                 public_key TEXT NOT NULL,
                 registration_date TEXT NOT NULL
             )

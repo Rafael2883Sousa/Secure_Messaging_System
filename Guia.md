@@ -99,7 +99,7 @@ python3 cliente/client.py bob --listen-port 6001
 
 **No terminal de Alice:**
 
-1. Listar utilizadores (opcional):
+1. Listar utilizadores:
    ```
    Escolha uma opção: 1
    ```

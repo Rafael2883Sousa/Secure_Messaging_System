@@ -97,11 +97,21 @@ class RegistrationAuthority:
             Protocol.send_message(client_socket, response)
             return
         
-        # Verifica se o utilizador já existe
         if self.db.user_exists(user_id):
+            existing_public_key_pem = self.db.get_public_key(user_id)
+
+            # Normaliza para evitar diferenças só de whitespace
+            if (existing_public_key_pem or "").strip() == public_key_pem.strip():
+                response = Protocol.create_message(
+                    MessageType.REGISTER_OK,
+                    {'message': 'Utilizador já registado (chave confirmada)'}
+                )
+                Protocol.send_message(client_socket, response)
+                return
+
             response = Protocol.create_message(
                 MessageType.REGISTER_ERROR,
-                {'message': 'Utilizador já registado'}
+                {'message': 'Utilizador já registado com chave pública diferente'}
             )
             Protocol.send_message(client_socket, response)
             return
