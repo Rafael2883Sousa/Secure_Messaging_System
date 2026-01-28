@@ -498,17 +498,17 @@ def main():
     print(f"\n[*] Cliente '{args.user_id}' pronto!")
     print(f"[*] Porta de escuta: {client.listen_port}\n")
     
-    # Menu interativo
-    print("=== Menu ===")
-    print("1. Listar utilizadores")
-    print("2. Estabelecer sessão com peer")
-    print("3. Enviar mensagem")
-    print("4. Sair")
-    print("============\n")
+    # # Menu interativo
+    # print("=== Menu ===")
+    # print("1. Listar utilizadores")
+    # print("2. Estabelecer sessão com peer")
+    # print("3. Enviar mensagem")
+    # print("4. Sair")
+    # print("============\n")
     
     while True:
         try:
-            choice = input("Escolha uma opção: ").strip()
+            choice = input(f"Escolha uma opção: \n=== Menu ===\n1. Listar utilizadores\n2. Estabelecer sessão com peer\n3. Enviar mensagem\n4. Sair\n============\n").strip()
             
             if choice == '1':
                 client.list_users()

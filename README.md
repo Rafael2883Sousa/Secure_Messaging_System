@@ -1,6 +1,6 @@
 # Sistema de Mensagens Seguras com Registo de Utilizadores
 
-Sistema de mensagens seguras desenvolvido para a disciplina de Criptografia Moderna (nível mestrado).
+Sistema de mensagens seguras desenvolvido para a disciplina de Criptografia Moderna.
 
 ## Descrição
 
