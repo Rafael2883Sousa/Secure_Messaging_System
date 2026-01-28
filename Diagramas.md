@@ -430,3 +430,4 @@ Operações:
 ---
 
 Estes diagramas fornecem uma visão visual completa do sistema, facilitando a compreensão dos fluxos e mecanismos de segurança implementados.
+
